@@ -114,6 +114,33 @@ Here you can test our model in your personal image. Note that if you want to tes
 ```
 python visual.py
 ```
+
+## Batch inference on a folder
+
+`run_folder.py` is a folder-based alternative to `visual.py`. It accepts ordinary RGB
+PNG/JPEG/TIFF images (not camera RAW or `.npz` files), preserves the input directory
+structure, pads each image to a multiple of 8 for the network, and crops the result
+back to its original resolution. Download the Base checkpoint (`model-300.pt`) from
+the model zoo first.
+
+```
+python run_folder.py infer \
+  --input-dir /path/to/noised/rgb_bright \
+  --output-dir /path/to/diffuir_results \
+  --checkpoint /path/to/model-300.pt
+```
+
+Once results are available, create labelled input/restored comparison panels with:
+
+```
+python run_folder.py compare \
+  --input-dir /path/to/noised/rgb_bright \
+  --output-dir /path/to/diffuir_results \
+  --comparison-dir /path/to/diffuir_comparisons
+```
+
+Use `--reference-dir /path/to/reference_images` to add an optional third panel. The
+reference directory must mirror the input filenames and subdirectories.
 ## Model Zoo (Google drive)
 | Model |    DiffUIR-T (0.89M)  |   DiffUIR-S (3.27M)  |   DiffUIR-B (12.41M)  |   DiffUIR-L (36.26M)  |
 |-------|:---------------------:|:--------------------:|:---------------------:|:---------------------:|
